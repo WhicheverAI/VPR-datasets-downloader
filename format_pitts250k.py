@@ -54,4 +54,4 @@ for dataset in ["train", "val", "test"]:
     move_images(os.path.join(dataset_folder, 'images', dataset, 'queries'), q_images, q_utms)
 
 map_builder.build_map_from_dataset(dataset_folder)
-shutil.rmtree(raw_data_folder)
+# shutil.rmtree(raw_data_folder)
