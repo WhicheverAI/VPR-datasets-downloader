@@ -14,6 +14,38 @@ RETRY_SECONDS = 2
 def get_distance(coords_A, coords_B):
     return math.sqrt((float(coords_B[0])-float(coords_A[0]))**2 + (float(coords_B[1])-float(coords_A[1]))**2)
 
+import os
+import subprocess
+
+# 设置Aria2的路径和下载目录
+# aria2_path = '/usr/bin/aria2c'
+# from pathlib import Path
+# def download_heavy_file(url, output_path):
+#     output_path = Path(output_path).resolve()
+#     # 使用Aria2下载视频
+#     command = [aria2_path, '-d', output_path.parent.as_posix(), '-o', output_path.name, 
+#             # "-x", "16", "-s", "16", "-k", "1M", 
+#             url]
+#     # output = subprocess.check_output(command, shell=True)
+    
+#     process = subprocess.Popen(command, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+#     output, error = process.communicate()
+#     print(output)
+#     print(error)
+# from DownloadKit import DownloadKit
+# d = DownloadKit(roads=os.cpu_count(), file_exists='overwrite', goal_path=None)
+# def download_heavy_file(url, output_path):
+#     d.download(file_url=url, goal_path=output_path, file_exists='overwrite')
+
+# from requests_download import download
+# import hashlib
+# # progressbar is provided by progressbar2 on PYPI.
+# from progressbar import DataTransferBar
+# from requests_download import download, HashTracker, ProgressTracker
+# def download_heavy_file(url, output_path):
+#     hasher = HashTracker(hashlib.sha256())
+#     progress = ProgressTracker(DataTransferBar())
+#     return download(url, output_path, trackers=(hasher, progress))
 
 def download_heavy_file(url, output_path):
     os.makedirs("tmp", exist_ok=True)
@@ -48,6 +80,7 @@ def download_heavy_file(url, output_path):
         raise RuntimeError(f"I tried 10 times and I couldn't download {output_path} from {url}")
     os.makedirs(os.path.dirname(os.path.abspath(output_path)), exist_ok=True)
     shutil.move(tmp_filename, output_path)
+
 
 
 def is_valid_timestamp(timestamp):
