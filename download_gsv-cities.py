@@ -18,7 +18,8 @@ import kaggle
 from kaggle.api.kaggle_api_extended import KaggleApi
 api = KaggleApi()
 api.authenticate()
-api.model_list_cli()
+# api.model_list_cli()
+# https://github.com/Kaggle/kaggle-api
 api.dataset_download_files("amaralibey/gsv-cities", path=raw_data_folder.as_posix(), unzip=True)
 
 # Download the visualization notebook

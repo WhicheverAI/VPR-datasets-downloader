@@ -11,6 +11,7 @@ import util
 import map_builder
 
 datasets_folder = join(os.curdir, "datasets")
+datasets_folder = os.path.abspath(datasets_folder)
 dataset_name = "pitts_all"
 dataset_folder = join(datasets_folder, dataset_name)
 raw_data_folder = join(datasets_folder, dataset_name, "raw_data")
@@ -69,12 +70,12 @@ for i, (url, tar_path) in enumerate(zip(urls, tars_paths)):
     else:
         print(f"{i:>3} / {len(file_names)} ) downloading {tar_path}")
         util.download_heavy_file(url, tar_path)
-    try:  # Unpacking database archives
-        shutil.unpack_archive(tar_path, raw_data_folder)
-    except shutil.ReadError as e:
-        # raise e
-        print (e) # 可能不是tar，那就是正常的
-        # pass  # Some tars are empty files
+        try:  # Unpacking database archives
+            shutil.unpack_archive(tar_path, raw_data_folder)
+        except shutil.ReadError as e:
+            # raise e
+            print (e) # 可能不是tar，那就是正常的
+            # pass  # Some tars are empty files
 
 # 把raw_data文件夹软链接到pitts30k和pitts250k
 print("Linking raw data to pitts30k and pitts250k")
@@ -82,10 +83,14 @@ print("Linking raw data to pitts30k and pitts250k")
 # os.symlink(join(datasets_folder, "pitts30k", "raw_data/"),raw_data_folder, target_is_directory=True)
 # os.symlink(join(datasets_folder, "pitts250k", "raw_data/"), raw_data_folder, target_is_directory=True)
 # ln -s 设计有问题，新建的软链接不能有层级结构，必须是直接的文件夹，所以得先cd进去。
+os.makedirs(join(datasets_folder, "pitts30k"), exist_ok=True)
+os.makedirs(join(datasets_folder, "pitts250k"), exist_ok=True)
 os.chdir(join(datasets_folder, "pitts30k"))
-os.symlink(raw_data_folder, "raw_data", target_is_directory=True)
+if not os.path.exists("raw_data"):
+    os.symlink(raw_data_folder, "raw_data", target_is_directory=True)
 os.chdir(join(datasets_folder, "pitts250k"))
-os.symlink(raw_data_folder, "raw_data", target_is_directory=True)
+if not os.path.exists("raw_data"):  
+    os.symlink(raw_data_folder, "raw_data", target_is_directory=True)
 
 
 # 还需要自己运行format
