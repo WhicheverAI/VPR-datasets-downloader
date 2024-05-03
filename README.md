@@ -1,9 +1,10 @@
 # WhicheverAI VPR Datasets Downloader
 
-We support automatically downloading GSV-Citis, MSLS, and Pitts30k/250k only after you have requested the dataset authors.
-After you've got their permission, you would write a `config.py`(ignored by git tracking) in the root of this repository. 
-You would put the private and confidential links that the dataset authors gave you into the `config.py`. 
-Them our downloader would provide you the ability to download and format these datasets easily. 
+We support automatically downloading GSV-Citis, MSLS, Tokyo247 and Pitts30k/250k only after you have requested the dataset authors.
+After you've got their permission, you would write a `config_private.py`(ignored by git tracking) in the root of this repository. 
+You would put the private and confidential links that the dataset authors gave you into the `config_private.py`. 
+Then our downloader would provide you the ability to download and format these datasets easily. 
+You can refer to `config.py` (tracked by git) for the format of `config_private.py`.
 
 
 # VPR Datasets Downloader
