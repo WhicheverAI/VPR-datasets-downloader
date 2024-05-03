@@ -1,3 +1,4 @@
+import config 
 
 import os
 import utm
@@ -69,7 +70,7 @@ raw_text = "\n".join([i  for i in raw_text.split("\n") if not i.startswith("#")]
 file_names = re.findall(r'\[\s*\]\s+(\S+)', raw_text)
 print(file_names)
 
-urls = [f"https://data.ciirc.cvut.cz/public/projects/2015netVLAD/Tokyo247/database_gsv_vga/{file_name}"
+urls = [f"{config.tokyo247_url}/{file_name}"
         for file_name in file_names]
 tars_paths = [join(
     # raw_data_folder, 
