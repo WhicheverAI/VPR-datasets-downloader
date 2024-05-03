@@ -22,5 +22,13 @@ https://****/ strange path to msls_patch_v1.1.zip
 # TODO  In the future, we may parse the private html that you got from the MSLS team, 
 # and then automatically reads the above urls for you. 
 
+# svox
+# The following url cannot be directly download!
+# 1. Click the link in your browser, you will see the google drive page
+# 2. Click the download button
+# 3. Copy the download link from the browser download utils. 
+# 4. set svox_url to that link in config_private.py
+svox_url = "https://drive.google.com/uc?id=16iuk8voW65GaywNUQlWAbDt6HZzAJ_t9"
+
 # Now the variables defined here would be overrided in config_private.py
 from config_private import *
