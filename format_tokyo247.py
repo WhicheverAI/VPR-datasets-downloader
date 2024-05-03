@@ -38,7 +38,7 @@ format it.
                 `-- 03829
 
 """
-
+import config
 import os
 import re
 import utm
@@ -89,7 +89,7 @@ for src_image_path, (utm_east, utm_north) in zip(tqdm(db_images, desc=f"Copy to 
 
 #### Queries
 filename = "247query_subset_v2.zip"
-url = f"https://data.ciirc.cvut.cz/public/projects/2015netVLAD/Tokyo247/queries/{filename}"
+url = f"{config.tokyo247_url}/queries/{filename}"
 file_zip_path = join(raw_data_folder, "tokyo247", filename)
 util.download_heavy_file(url, file_zip_path)
 shutil.unpack_archive(file_zip_path, join(raw_data_folder, "tokyo247"))
