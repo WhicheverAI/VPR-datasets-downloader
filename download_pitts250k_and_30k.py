@@ -9,6 +9,7 @@ from os.path import join
 
 import util
 import map_builder
+import config 
 
 datasets_folder = join(os.curdir, "datasets")
 datasets_folder = os.path.abspath(datasets_folder)
@@ -59,7 +60,7 @@ raw_text = "\n".join([i  for i in raw_text.split("\n") if not i.startswith("#")]
 file_names = re.findall(r'\[\s*\]\s+(\S+)', raw_text)
 print(file_names)
 
-urls = [f"https://data.ciirc.cvut.cz/public/projects/2015netVLAD/Pittsburgh250k/{file_name}"
+urls = [f"{config.pitts_250k_url}/{file_name}"
         for file_name in file_names]
 tars_paths = [join(raw_data_folder, f) for f in file_names]
 
