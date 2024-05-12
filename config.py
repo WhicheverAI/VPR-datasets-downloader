@@ -3,7 +3,7 @@
 
 # Email arandjelovic.relja@gmail.com to get the full link of pitts and tokyo.
 pitts_250k_url:str = "https://****/****/****/****/Pittsburgh250k" # Without a '/' at the end. 
-tokyo247_url:str = "https://****/****/****/****/Tokyo247"
+tokyo247_url:str = "https://****/****/****/****/Tokyo247/database_gsv_vga"
 
 
 # 1. Read documentation at https://github.com/mapillary/mapillary_sls
