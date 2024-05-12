@@ -12,8 +12,8 @@ import util
 import map_builder
 import warnings
 
-
-datasets_folder = join(os.curdir, "datasets")
+curdir = os.path.abspath(os.curdir)
+datasets_folder = join(curdir, "datasets")
 dataset_name = "tokyo247"
 dataset_folder = join(datasets_folder, dataset_name)
 raw_data_folder = join(datasets_folder, dataset_name, "raw_data")
@@ -27,16 +27,18 @@ raw_data_datasets = join(raw_data_folder, "datasets")
 #### Download tokyo247.mat
 # tokyo247 和 pitts 都是 relja 在 netvlad 提出的。
 # tokyo247.mat 需要在 pitts30k 的文件里面下载。
-pitts30k_folder = join(os.curdir, "datasets", 'pitts30k')
+
+pitts30k_folder = join(curdir, "datasets", 'pitts30k')
 if not os.path.exists(pitts30k_folder):
-    warnings.warn(f"You'd better download pitts_30k before you download this in order to get `tokyo247.mat`. ")
+    warnings.warn("You'd better download pitts_30k before you download this in order to get `tokyo247.mat`. ")
 else:
     # ln -s 设计有问题，新建的软链接不能有层级结构，必须是直接的文件夹，所以得先cd进去。
     # os.chdir(raw_data_datasets)
     # os.symlink(join(pitts30k_folder, "raw_data", "datasets", "tokyo247.mat"), 
     #         "tokyo247.mat", target_is_directory=False)
     os.chdir(raw_data_folder)
-    os.symlink(join(pitts30k_folder, "raw_data", "datasets"),
+    if not os.path.exists("datasets"):
+        os.symlink(join(pitts30k_folder, "raw_data", "datasets"),
                "datasets", target_is_directory=True)
                
 
