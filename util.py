@@ -1,52 +1,18 @@
+
 import os
 import re
 import utm
 import cv2
 import math
-import time
-import shutil
-import requests
-from tqdm import tqdm
-
-RETRY_SECONDS = 2
 
 
 def get_distance(coords_A, coords_B):
     return math.sqrt((float(coords_B[0])-float(coords_A[0]))**2 + (float(coords_B[1])-float(coords_A[1]))**2)
 
-import os
-import subprocess
-
-# 设置Aria2的路径和下载目录
-# aria2_path = '/usr/bin/aria2c'
-# from pathlib import Path
-# def download_heavy_file(url, output_path):
-#     output_path = Path(output_path).resolve()
-#     # 使用Aria2下载视频
-#     command = [aria2_path, '-d', output_path.parent.as_posix(), '-o', output_path.name, 
-#             # "-x", "16", "-s", "16", "-k", "1M", 
-#             url]
-#     # output = subprocess.check_output(command, shell=True)
-    
-#     process = subprocess.Popen(command, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
-#     output, error = process.communicate()
-#     print(output)
-#     print(error)
-# from DownloadKit import DownloadKit
-# d = DownloadKit(roads=os.cpu_count(), file_exists='overwrite', goal_path=None)
-# def download_heavy_file(url, output_path):
-#     d.download(file_url=url, goal_path=output_path, file_exists='overwrite')
-
-# from requests_download import download
-# import hashlib
-# # progressbar is provided by progressbar2 on PYPI.
-# from progressbar import DataTransferBar
-# from requests_download import download, HashTracker, ProgressTracker
-# def download_heavy_file(url, output_path):
-#     hasher = HashTracker(hashlib.sha256())
-#     progress = ProgressTracker(DataTransferBar())
-#     return download(url, output_path, trackers=(hasher, progress))
-
+import requests
+import time
+import shutil
+from tqdm import tqdm
 def download_heavy_file(url, output_path):
     os.makedirs("tmp", exist_ok=True)
 
@@ -82,7 +48,6 @@ def download_heavy_file(url, output_path):
     shutil.move(tmp_filename, output_path)
 
 
-
 def is_valid_timestamp(timestamp):
     """Return True if it's a valid timestamp, in format YYYYMMDD_hhmmss,
         with all fields from left to right optional.
@@ -99,16 +64,14 @@ def is_valid_timestamp(timestamp):
 def format_coord(num, left=2, right=5):
     """Return the formatted number as a string with (left) int digits 
             (including sign '-' for negatives) and (right) float digits.
-    >>> format_coord(1.1, 3, 3)
+    >>> format_coord2(1.1, 3, 3)
     '001.100'
-    >>> format_coord(-0.123, 3, 3)
+    >>> format_coord2(-0.12345, 3, 3)
     '-00.123'
+    >>> format_coord2(-0.123, 5, 5)
+    '-0000.12300'
     """
-    sign = "-" if float(num) < 0 else ""
-    num = str(abs(float(num))) + "."
-    integer, decimal = num.split(".")[:2]
-    left -= len(sign)
-    return f"{sign}{int(integer):0{left}d}.{decimal[:right]:<0{right}}"
+    return f'{float(num):0={left+right+1}.{right}f}'
 
 import doctest
 doctest.testmod()  # Automatically execute unit-test of format_coord()
