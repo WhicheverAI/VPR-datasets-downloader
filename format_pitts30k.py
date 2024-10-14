@@ -37,7 +37,7 @@ def copy_images(dst_folder, src_images_paths, utms):
                                              tile_num=tile_num, note=note)
         src_path = os.path.join(dataset_folder, 'raw_data', src_image_path)
         dst_path = os.path.join(dst_folder, dst_image_name)
-        shutil.move(src_path, dst_path)
+        shutil.copyfile(src_path, dst_path)
 
 
 for dataset in ["train", "val", "test"]:

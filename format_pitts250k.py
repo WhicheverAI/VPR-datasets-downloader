@@ -23,7 +23,7 @@ raw_data_folder = join(datasets_folder, dataset_name, "raw_data")
 os.makedirs(dataset_folder, exist_ok=True)
 os.makedirs(raw_data_folder, exist_ok=True)
 
-def move_images(dst_folder, src_images_paths, utms):
+def copy_images(dst_folder, src_images_paths, utms):
     os.makedirs(dst_folder, exist_ok=True)
     for src_image_path, (utm_east, utm_north) in zip(tqdm(src_images_paths, desc=f"Move images to {dst_folder}"),
                                                      utms):
@@ -38,7 +38,8 @@ def move_images(dst_folder, src_images_paths, utms):
 
         src_path = os.path.join(dataset_folder, 'raw_data', src_image_path)
         dst_path = os.path.join(dst_folder, dst_image_name)
-        shutil.move(src_path, dst_path)
+        # shutil.move(src_path, dst_path)
+        shutil.copyfile(src_path, dst_path)
 
 
 for dataset in ["train", "val", "test"]:
@@ -47,11 +48,11 @@ for dataset in ["train", "val", "test"]:
     # Database
     g_images = [f[0].item() for f in mat_struct[1]]
     g_utms = mat_struct[2].T
-    move_images(os.path.join(dataset_folder, 'images', dataset, 'database'), g_images, g_utms)
+    copy_images(os.path.join(dataset_folder, 'images', dataset, 'database'), g_images, g_utms)
     # Queries
     q_images = [os.path.join("queries_real", f"{f[0].item()}") for f in mat_struct[3]]
     q_utms = mat_struct[4].T
-    move_images(os.path.join(dataset_folder, 'images', dataset, 'queries'), q_images, q_utms)
+    copy_images(os.path.join(dataset_folder, 'images', dataset, 'queries'), q_images, q_utms)
 
 map_builder.build_map_from_dataset(dataset_folder)
 # shutil.rmtree(raw_data_folder)
