@@ -1,4 +1,5 @@
 # custom
+*.part
 auto_run_output
 config_private.py
 msls

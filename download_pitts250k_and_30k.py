@@ -11,6 +11,8 @@ import util
 import map_builder
 import config 
 
+import py3_wget
+
 datasets_folder = join(os.curdir, "datasets")
 datasets_folder = os.path.abspath(datasets_folder)
 dataset_name = "pitts_all"
@@ -70,7 +72,7 @@ for i, (url, tar_path) in enumerate(zip(urls, tars_paths)):
         print(f"I see {check}, won't download {tar_path} again. ")
     else:
         print(f"{i:>3} / {len(file_names)} ) downloading {tar_path}")
-        util.download_heavy_file(url, tar_path)
+        py3_wget.download_file(url=url, output_path=tar_path)
         try:  # Unpacking database archives
             shutil.unpack_archive(tar_path, raw_data_folder)
         except shutil.ReadError as e:

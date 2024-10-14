@@ -10,8 +10,8 @@ all_pys = [
     "download_mapillary.py",
     "format_mapillary.py"
 ]
-commands = [f"python {f.name}" for f in all_pys]
-run_names = [f.stem for f in all_pys]
+commands = [f"python {f}" for f in all_pys]
+run_names = [f for f in all_pys]
 #%%
 step1 = lambda :auto_run(command_executor, commands, run_names[0:1], "basic_download_and_format_step_1")
 step2 = lambda :auto_run(command_executor, commands, run_names[1:3], "basic_download_and_format_step_2")
